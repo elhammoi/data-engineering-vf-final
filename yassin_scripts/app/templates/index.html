@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NBA Leaders</title>
+        <style>
+            .header {
+                display: flex;
+                align-items: center; /* Align items (image and title) vertically */
+                justify-content: center; /* Center the content horizontally */
+            }
+            .header img {
+                width: 47px; /* Adjust the logo size */
+                height: 100px; /* Maintain aspect ratio */
+                margin-right: 20px; /* Add spacing between the image and title */
+            }
+            .header h1 {
+                font-size: 24px; /* Adjust the title size */
+            }
+            
+        </style>
+    </head>
+<body>
+
+    <div class="header">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="NBA Logo">
+        <h1>NBA Leaders 2024-25 Season Visualization</h1>
+    </div>
+
+    <h3>NBA Top Players by Category:</h3>
+    <img src="{{ table_url }}" alt="NBA Leaders Table">
+    <h3> NBA Player Performance Metrics by Category:<h3>
+    <img src="{{ image_url }}" alt="NBA Leaders Graph">
+
+    <h3>NBA Top Shooters:</h3>
+    <img src="{{ shooters_table_url }}" alt="shooters_table_url">
+
+
+    
+  
+</body>
+</html>
+

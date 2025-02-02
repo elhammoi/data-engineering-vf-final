@@ -1,0 +1,13 @@
+flask
+pymongo
+scrapy  # Web scraping framework
+scrapy-user-agents  # Rotate user agents to avoid bans
+scrapy-fake-useragent  # Another way to randomize user agents
+scrapy-splash  # For JavaScript-heavy websites (requires Splash)
+scrapy-rotating-proxies  # Proxy rotation
+pymongo  # If storing data in MongoDB
+mysql-connector-python  # If using MySQL
+psycopg2-binary  # If using PostgreSQL
+pandas  # For data processing
+beautifulsoup4  # For additional HTML parsing
+lxml  # Faster XML/HTML parsing

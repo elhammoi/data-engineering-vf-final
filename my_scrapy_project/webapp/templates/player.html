@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ player_name }} - Stats{% endblock %}
+
+{% block content %}
+<h2>Statistiques de {{ player_name }}</h2>
+
+{% if leader_stats %}
+<h3>Stats de Leader</h3>
+<ul class="list-group">
+    <li class="list-group-item"><b>Catégorie :</b> {{ leader_stats.category }}</li>
+    <li class="list-group-item"><b>Équipe :</b> {{ leader_stats.team }}</li>
+    <li class="list-group-item"><b>Valeur :</b> {{ leader_stats.value }}</li>
+</ul>
+{% endif %}
+
+{% if shooter_stats %}
+<h3>Stats de Shooter</h3>
+<ul class="list-group">
+    <li class="list-group-item"><b>Rang :</b> {{ shooter_stats.rank }}</li>
+    <li class="list-group-item"><b>Équipe :</b> {{ shooter_stats.team }}</li>
+    <li class="list-group-item"><b>Points :</b> {{ shooter_stats.points }}</li>
+</ul>
+{% endif %}
+
+<a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Retour à l'accueil</a>
+{% endblock %}

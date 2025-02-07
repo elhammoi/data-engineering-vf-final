@@ -1,69 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBA Stats - {{ team_name }}</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
-    <h1>NBA Stats - {{ team_name }}</h1>
+{% extends "base.html" %}
+{% block title %}{{ team_name }} - Stats{% endblock %}
 
-    <h2>Leaders</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Category</th>
-                <th>Player</th>
-                <th>Team</th>
-                <th>Value</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for doc in leaders_data %}
-            <tr>
-                <td>{{ doc.category }}</td>
-                <td>{{ doc.player_name }}</td>
-                <td>{{ doc.team }}</td>
-                <td>{{ doc.value }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+{% block content %}
+<h2>{{ team_name }} - Statistiques</h2>
 
-    <h2>Shooters</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Rank</th>
-                <th>Name</th>
-                <th>Team</th>
-                <th>Points</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for doc in shooters_data %}
-            <tr>
-                <td>{{ doc.rank }}</td>
-                <td>{{ doc.name }}</td>
-                <td>{{ doc.team }}</td>
-                <td>{{ doc.points }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-</html>
+<h3>Leaders</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr><th>Catégorie</th><th>Joueur</th><th>Valeur</th></tr>
+    </thead>
+    <tbody>
+        {% for doc in leaders_data %}
+        <tr>
+            <td>{{ doc.category }}</td>
+            <td><a href="{{ url_for('player', player_name=doc.player_name) }}">{{ doc.player_name }}</a></td>
+            <td>{{ doc.value }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Shooters</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr><th>Rang</th><th>Joueur</th><th>Points</th></tr>
+    </thead>
+    <tbody>
+        {% for doc in shooters_data %}
+        <tr>
+            <td>{{ doc.rank }}</td>
+            <td><a href="{{ url_for('player', player_name=doc.name) }}">{{ doc.name }}</a></td>
+            <td>{{ doc.points }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('index') }}" class="btn btn-primary mt-3">Retour à l'accueil</a>
+{% endblock %}

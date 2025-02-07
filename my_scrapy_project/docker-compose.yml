@@ -13,7 +13,16 @@ services:
     container_name: my_scraper
     depends_on:
       - mongo
-    command: scrapy crawl nba_leaders
+    command: /bin/sh -c "scrapy crawl nba_leaders && scrapy crawl nba_shooters"
+    
+  webapp:
+    build: ./webapp
+    container_name: my_webapp
+    depends_on:
+      - mongo
+    # On change ici le port hôte à 5010 par exemple
+    ports:
+      - "8050:8050"
 
 volumes:
   mongo_data:

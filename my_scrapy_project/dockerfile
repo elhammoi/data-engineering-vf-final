@@ -1,0 +1,18 @@
+# Dockerfile pour construire l'image du scraper
+FROM python:3.10-slim
+
+# Créer un dossier de travail
+WORKDIR /app
+
+# Copier le fichier requirements.txt
+COPY requirements.txt .
+
+# Installer les dépendances
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier le reste du code
+COPY . .
+
+# Commande par défaut (facultatif)
+# On peut choisir de lancer scrapy tout de suite ou le laisser à docker-compose
+CMD ["scrapy", "crawl", "nba_leaders"]

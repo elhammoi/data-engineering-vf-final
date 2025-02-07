@@ -5,7 +5,6 @@ FROM python:3.10-slim
 # Définir le répertoire de travail à l'intérieur du conteneur
 WORKDIR /webapp
 
-
 # Copier le requirements.txt et installer les dépendances
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
@@ -13,8 +12,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copier le reste du code (app.py, etc.)
 COPY . .
 
-# Indiquer le port exposé (5000 pour Flask)
-EXPOSE 5000
+# Indiquer le port exposé (8050 pour Flask)
+EXPOSE 8050
 
 # Démarrer l'application Flask
 CMD ["python", "app.py"]

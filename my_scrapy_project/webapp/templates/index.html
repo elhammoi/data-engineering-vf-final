@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Stats</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>NBA Stats</h1>
+
+    <h2>Leaders</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Player</th>
+                <th>Team</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doc in leaders_data %}
+            <tr>
+                <td>{{ doc.category }}</td>
+                <td>{{ doc.player_name }}</td>
+                <td>{{ doc.team }}</td>
+                <td>{{ doc.value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Shooters</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doc in shooters_data %}
+            <tr>
+                <td>{{ doc.rank }}</td>
+                <td>{{ doc.name }}</td>
+                <td>{{ doc.team }}</td>
+                <td>{{ doc.points }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Interactivité</h2>
+    <form action="/team" method="get">
+        <label for="team">Sélectionner une équipe :</label>
+        <select name="team" id="team">
+            {% for doc in leaders_data %}
+            <option value="{{ doc.team }}">{{ doc.team }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Voir les stats</button>
+    </form>
+</body>
+</html>

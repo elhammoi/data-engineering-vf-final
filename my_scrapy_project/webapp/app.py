@@ -1,61 +1,34 @@
-import dash
-from dash import html
+from flask import Flask, render_template, request
 from pymongo import MongoClient
 
-# Connexion à la base "nba_stats"
-client = MongoClient("mongodb://mongo:27017/")
-db = client["nba_stats"]  # <-- base renommée en "nba_stats"
+app = Flask(__name__)
 
-# Lecture des collections
-leaders_data = list(db["nba_leaders"].find({}))
-shooters_data = list(db["nba_shooters"].find({}))
+@app.route('/')
+def index():
+    client = MongoClient("mongodb://mongo:27017/")
+    db = client["nba_stats"]
 
-# Construction de 2 tableaux HTML
-def create_leaders_table(data):
-    return html.Table([
-        html.Thead(html.Tr([
-            html.Th("Category"),
-            html.Th("Player"),
-            html.Th("Team"),
-            html.Th("Value"),
-        ])),
-        html.Tbody([
-            html.Tr([
-                html.Td(doc.get("category", "N/A")),
-                html.Td(doc.get("player_name", "N/A")),
-                html.Td(doc.get("team", "N/A")),
-                html.Td(doc.get("value", "N/A"))
-            ]) for doc in data
-        ])
-    ], style={'border': '1px solid black'})
+    # Récupération des collections
+    leaders_data = list(db["new_nba_leaders"].find())
+    shooters_data = list(db["new_nba_shooters"].find())
 
-def create_shooters_table(data):
-    return html.Table([
-        html.Thead(html.Tr([
-            html.Th("Rank"),
-            html.Th("Name"),
-            html.Th("Team"),
-            html.Th("Points"),
-        ])),
-        html.Tbody([
-            html.Tr([
-                html.Td(doc.get("rank", "N/A")),
-                html.Td(doc.get("name", "N/A")),
-                html.Td(doc.get("team", "N/A")),
-                html.Td(doc.get("points", "N/A"))
-            ]) for doc in data
-        ])
-    ], style={'border': '1px solid black'})
+    client.close()
 
-app = dash.Dash(__name__)
+    return render_template('index.html', leaders_data=leaders_data, shooters_data=shooters_data)
 
-app.layout = html.Div([
-    html.H1("NBA Stats"),
-    html.H2("Leaders"),
-    create_leaders_table(leaders_data),
-    html.H2("Shooters"),
-    create_shooters_table(shooters_data),
-])
+@app.route('/team', methods=['GET'])
+def team():
+    team_name = request.args.get('team')
+    client = MongoClient("mongodb://mongo:27017/")
+    db = client["nba_stats"]
 
-if __name__ == "__main__":
-    app.run_server(debug=True, host="0.0.0.0", port=8050)
+    # Filtrer les données par équipe
+    leaders_data = list(db["new_nba_leaders"].find({"team": team_name}))
+    shooters_data = list(db["new_nba_shooters"].find({"team": team_name}))
+
+    client.close()
+
+    return render_template('team.html', team_name=team_name, leaders_data=leaders_data, shooters_data=shooters_data)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8050, debug=True)

@@ -2,61 +2,63 @@
 {% block title %}Top Performers{% endblock %}
 
 {% block content %}
-<div class="text-center mb-4">
-  <h2>Top Performers NBA</h2>
-</div>
-
-<div class="mb-4">
-  <form method="get" class="row g-3 justify-content-center">
-    <div class="col-auto">
-      <label for="category" class="visually-hidden">Choisir une catégorie :</label>
-      <select id="category" name="category" class="form-select">
-          {% for category in categories %}
-          <option value="{{ category }}" {% if category == selected_category %}selected{% endif %}>{{ category }}</option>
-          {% endfor %}
+<div class="container">
+  <h2 class="text-center my-4">Top Performers selon {{ criterion }}</h2>
+  
+  <!-- Formulaire de filtres -->
+  <form method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+      <label for="criterion" class="form-label">Critère :</label>
+      <select name="criterion" id="criterion" class="form-select">
+        <option value="PTS" {% if criterion == "PTS" %}selected{% endif %}>Points (PTS)</option>
+        <option value="TRB" {% if criterion == "TRB" %}selected{% endif %}>Rebonds (TRB)</option>
+        <option value="AST" {% if criterion == "AST" %}selected{% endif %}>Passes (AST)</option>
+        <option value="FG" {% if criterion == "FG" %}selected{% endif %}>Field Goals (FG)</option>
+        <option value="3P" {% if criterion == "3P" %}selected{% endif %}>Three Pointers (3P)</option>
+        <option value="3PA" {% if criterion == "3PA" %}selected{% endif %}>Three Pointers Attempted (3PA)</option>
+        <!-- Vous pouvez ajouter d'autres critères ici si nécessaire -->
       </select>
     </div>
-    <div class="col-auto">
+    <div class="col-md-4">
+      <label for="team" class="form-label">Équipe :</label>
+      <select name="team" id="team" class="form-select">
+        <option value="">Toutes</option>
+        {% for t in teams %}
+        <option value="{{ t }}" {% if team_filter == t %}selected{% endif %}>{{ t }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="position" class="form-label">Position :</label>
+      <select name="position" id="position" class="form-select">
+        <option value="">Toutes</option>
+        {% for pos in positions %}
+        <option value="{{ pos }}" {% if position_filter == pos %}selected{% endif %}>{{ pos }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-12">
       <button type="submit" class="btn btn-primary">Filtrer</button>
     </div>
   </form>
-</div>
-
-{% if players %}
-<div class="card shadow-sm">
-  <div class="card-header">
-    <h5 class="card-title mb-0">Classement - {{ selected_category }}</h5>
-  </div>
-  <div class="card-body p-0">
-    <table class="table table-bordered mb-0">
-      <thead>
-        <tr>
-          <th>Classement</th>
-          <th>Joueur</th>
-          <th>Équipe</th>
-          <th>Valeur</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for player in players %}
-        <tr>
-          <td>{{ loop.index }}</td>
-          <td><a href="{{ url_for('player', player_name=player.player_name or player.name) }}">{{ player.player_name or player.name }}</a></td>
-          <td>{{ player.team }}</td>
-          <td>{{ player.value }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</div>
-{% else %}
-<div class="alert alert-warning text-center">
-  Aucun joueur trouvé pour la catégorie sélectionnée.
-</div>
-{% endif %}
-
-<div class="text-center mt-3">
-  <a href="{{ url_for('index') }}" class="btn btn-secondary">Retour à l'accueil</a>
+  
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>{{ criterion }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for player in players %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td><a href="{{ url_for('player', player_name=player['Player']) }}">{{ player['Player'] }}</a></td>
+        <td>{{ player[criterion] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}

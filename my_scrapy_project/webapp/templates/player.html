@@ -1,59 +1,21 @@
 {% extends "base.html" %}
-{% block title %}{{ player_name }} - Stats{% endblock %}
+{% block title %}{{ player_name }} - Statistiques{% endblock %}
 
 {% block content %}
-<div class="text-center mb-4">
-  <h2>Statistiques de {{ player_name }}</h2>
-</div>
-<div class="row">
-  {% if new_leader_stats or old_leader_stats %}
-  <div class="col-md-6">
-    <div class="card mb-3 shadow-sm">
-      <div class="card-header bg-primary text-white">
-        Statistiques Leader
-      </div>
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          {% if new_leader_stats %}
-          <li class="list-group-item"><strong>New - Catégorie :</strong> {{ new_leader_stats.category }}</li>
-          <li class="list-group-item"><strong>New - Équipe :</strong> {{ new_leader_stats.team }}</li>
-          <li class="list-group-item"><strong>New - Valeur :</strong> {{ new_leader_stats.value }}</li>
-          {% endif %}
-          {% if old_leader_stats %}
-          <li class="list-group-item"><strong>Old - Catégorie :</strong> {{ old_leader_stats.category }}</li>
-          <li class="list-group-item"><strong>Old - Équipe :</strong> {{ old_leader_stats.team }}</li>
-          <li class="list-group-item"><strong>Old - Valeur :</strong> {{ old_leader_stats.value }}</li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-  </div>
+<div class="container">
+  <h2 class="text-center my-4">Statistiques de {{ player_name }}</h2>
+  {% if stats %}
+  <ul class="list-group">
+    <li class="list-group-item"><strong>Âge :</strong> {{ stats['Age'] }}</li>
+    <li class="list-group-item"><strong>Équipe :</strong> {{ stats['Team'] }}</li>
+    <li class="list-group-item"><strong>Position :</strong> {{ stats['Pos'] }}</li>
+    <li class="list-group-item"><strong>Matchs joués (G) :</strong> {{ stats['G'] }}</li>
+    <li class="list-group-item"><strong>Minutes (MP) :</strong> {{ stats['MP'] }}</li>
+    <li class="list-group-item"><strong>Points (PTS) :</strong> {{ stats['PTS'] }}</li>
+    <!-- Ajoutez d'autres statistiques selon vos besoins -->
+  </ul>
+  {% else %}
+  <p>Aucune donnée disponible pour ce joueur.</p>
   {% endif %}
-  {% if new_shooter_stats or old_shooter_stats %}
-  <div class="col-md-6">
-    <div class="card mb-3 shadow-sm">
-      <div class="card-header bg-secondary text-white">
-        Statistiques Shooter
-      </div>
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          {% if new_shooter_stats %}
-          <li class="list-group-item"><strong>New - Rang :</strong> {{ new_shooter_stats.rank }}</li>
-          <li class="list-group-item"><strong>New - Équipe :</strong> {{ new_shooter_stats.team }}</li>
-          <li class="list-group-item"><strong>New - Points :</strong> {{ new_shooter_stats.points }}</li>
-          {% endif %}
-          {% if old_shooter_stats %}
-          <li class="list-group-item"><strong>Old - Rang :</strong> {{ old_shooter_stats.rank }}</li>
-          <li class="list-group-item"><strong>Old - Équipe :</strong> {{ old_shooter_stats.team }}</li>
-          <li class="list-group-item"><strong>Old - Points :</strong> {{ old_shooter_stats.points }}</li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-  </div>
-  {% endif %}
-</div>
-<div class="text-center">
-  <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Retour à l'accueil</a>
 </div>
 {% endblock %}

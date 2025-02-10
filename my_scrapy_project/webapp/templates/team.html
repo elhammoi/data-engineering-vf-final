@@ -1,55 +1,52 @@
 {% extends "base.html" %}
-{% block title %}{{ team_name }} - Stats{% endblock %}
+{% block title %}{{ team_name }} - Joueurs{% endblock %}
 
 {% block content %}
-<div class="text-center mb-4">
-  <h2>{{ team_name }} - Statistiques</h2>
-</div>
-
-<div class="mb-4">
-  <form method="get" class="row g-3 justify-content-center">
-    <div class="col-auto">
-      <label for="category" class="visually-hidden">Choisir une catégorie :</label>
-      <select id="category" name="category" class="form-select">
-          <option value="" {% if not selected_category %}selected{% endif %}>Toutes les catégories</option>
-          {% for category in categories %}
-          <option value="{{ category }}" {% if category == selected_category %}selected{% endif %}>{{ category }}</option>
+<div class="container">
+  <h2 class="text-center my-4">{{ team_name }} - Joueurs</h2>
+  
+  <div class="mb-3">
+    <form method="get" class="row g-3 align-items-center">
+      <div class="col-auto">
+        <label for="position" class="form-label">Filtrer par position :</label>
+      </div>
+      <div class="col-auto">
+        <select name="position" id="position" class="form-select">
+          <option value="">Toutes</option>
+          {% for pos in positions %}
+          <option value="{{ pos }}" {% if pos == selected_position %}selected{% endif %}>{{ pos }}</option>
           {% endfor %}
-      </select>
-    </div>
-    <div class="col-auto">
-      <button type="submit" class="btn btn-primary">Filtrer</button>
-    </div>
-  </form>
-</div>
-
-<div class="card shadow-sm">
-  <div class="card-header">
-    <h5 class="card-title mb-0">Joueurs</h5>
+        </select>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Filtrer</button>
+      </div>
+    </form>
   </div>
-  <div class="card-body p-0">
-    <table class="table table-bordered mb-0">
-      <thead>
-        <tr>
-          <th>Joueur</th>
-          <th>Catégorie</th>
-          <th>Valeur</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for player in players_data %}
-        <tr>
-          <td><a href="{{ url_for('player', player_name=player.player_name or player.name) }}">{{ player.player_name or player.name }}</a></td>
-          <td>{{ player.category }}</td>
-          <td>{{ player.value }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<div class="text-center mt-3">
-  <a href="{{ url_for('index') }}" class="btn btn-secondary">Retour à l'accueil</a>
+  
+  <table class="table table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>Player</th>
+        <th>Âge</th>
+        <th>Position</th>
+        <th>Matchs joués (G)</th>
+        <th>Minutes (MP)</th>
+        <th>Points (PTS)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for player in players %}
+      <tr>
+        <td><a href="{{ url_for('player', player_name=player['Player']) }}">{{ player['Player'] }}</a></td>
+        <td>{{ player['Age'] }}</td>
+        <td>{{ player['Pos'] }}</td>
+        <td>{{ player['G'] }}</td>
+        <td>{{ player['MP'] }}</td>
+        <td>{{ player['PTS'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}

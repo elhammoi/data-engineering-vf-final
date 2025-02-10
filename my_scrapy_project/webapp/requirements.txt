@@ -2,3 +2,5 @@ flask
 flask_pymongo
 pandas
 plotly
+gunicorn==20.1.0
+pymongo==4.3.3

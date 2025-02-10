@@ -2,19 +2,24 @@
 {% block title %}Accueil - NBA Teams{% endblock %}
 
 {% block content %}
-<h2>Liste des équipes</h2>
-<ul class="list-group">
-    {% for team in teams %}
-    <li class="list-group-item">
-        <a href="{{ url_for('team', team_name=team) }}">{{ team }}</a>
-    </li>
-    {% endfor %}
-</ul>
-
-<!-- Bouton pour accéder au Dashboard -->
-<a href="/dashboard/" class="btn btn-primary mt-3">Voir le Dashboard</a>
-
-<a href="{{ url_for('top_performers') }}" class="btn btn-primary mt-3">Voir les Top Performers</a>
-
-
+<div class="text-center mb-4">
+  <h2>Liste des équipes</h2>
+</div>
+<div class="row">
+  {% for team in teams %}
+  <div class="col-md-4 mb-3">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">{{ team }}</h5>
+        <a href="{{ url_for('team', team_name=team) }}" class="btn btn-primary">Voir Statistiques</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<div class="d-flex justify-content-center mt-4">
+  <!-- Le lien dashboard redirige vers /stats -->
+  <a href="/dashboard/" class="btn btn-primary me-2">Voir le Dashboard</a>
+  <a href="{{ url_for('top_performers') }}" class="btn btn-primary">Voir les Top Performers</a>
+</div>
 {% endblock %}

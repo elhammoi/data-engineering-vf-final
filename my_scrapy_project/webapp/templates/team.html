@@ -2,40 +2,54 @@
 {% block title %}{{ team_name }} - Stats{% endblock %}
 
 {% block content %}
-<h2>{{ team_name }} - Statistiques</h2>
+<div class="text-center mb-4">
+  <h2>{{ team_name }} - Statistiques</h2>
+</div>
 
-<!-- Dropdown pour choisir la catégorie -->
-<form method="get">
-    <label for="category">Choisir une catégorie :</label>
-    <select id="category" name="category" class="form-select mb-3">
-        <option value="" {% if not selected_category %}selected{% endif %}>Toutes les catégories</option>
-        {% for category in categories %}
-        <option value="{{ category }}" {% if category == selected_category %}selected{% endif %}>{{ category }}</option>
-        {% endfor %}
-    </select>
-    <button type="submit" class="btn btn-primary">Filtrer</button>
-</form>
+<div class="mb-4">
+  <form method="get" class="row g-3 justify-content-center">
+    <div class="col-auto">
+      <label for="category" class="visually-hidden">Choisir une catégorie :</label>
+      <select id="category" name="category" class="form-select">
+          <option value="" {% if not selected_category %}selected{% endif %}>Toutes les catégories</option>
+          {% for category in categories %}
+          <option value="{{ category }}" {% if category == selected_category %}selected{% endif %}>{{ category }}</option>
+          {% endfor %}
+      </select>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Filtrer</button>
+    </div>
+  </form>
+</div>
 
-<!-- Tableau des joueurs filtrés -->
-<h3>Joueurs</h3>
-<table class="table table-bordered">
-    <thead>
+<div class="card shadow-sm">
+  <div class="card-header">
+    <h5 class="card-title mb-0">Joueurs</h5>
+  </div>
+  <div class="card-body p-0">
+    <table class="table table-bordered mb-0">
+      <thead>
         <tr>
-            <th>Joueur</th>
-            <th>Catégorie</th>
-            <th>Valeur</th>
+          <th>Joueur</th>
+          <th>Catégorie</th>
+          <th>Valeur</th>
         </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
         {% for player in players_data %}
         <tr>
-            <td><a href="{{ url_for('player', player_name=player.player_name) }}">{{ player.player_name }}</a></td>
-            <td>{{ player.category }}</td>
-            <td>{{ player.value }}</td>
+          <td><a href="{{ url_for('player', player_name=player.player_name) }}">{{ player.player_name }}</a></td>
+          <td>{{ player.category }}</td>
+          <td>{{ player.value }}</td>
         </tr>
         {% endfor %}
-    </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Retour à l'accueil</a>
+<div class="text-center mt-3">
+  <a href="{{ url_for('index') }}" class="btn btn-secondary">Retour à l'accueil</a>
+</div>
 {% endblock %}

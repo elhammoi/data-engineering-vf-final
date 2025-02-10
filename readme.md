@@ -156,5 +156,5 @@ L’interface MongoDB Compass permet de visualiser les données stockées dans l
 L’interface Docker Desktop permet de voir les différents conteneurs en cours d'exécution, garantissant que l’application fonctionne correctement.
 
 ## Conclusion
-Ce projet illustre l'utilisation combinée de **Scrapy**, **MongoDB**, **Flask**, et **Docker** pour collecter, stocker et afficher des statistiques NBA de manière interactive. Il fournit une base solide pour développer des applications analytiques dans le domaine du sport et des données statistiques.
+Ce projet repose sur l'utilisation de Scrapy, MongoDB, Flask, et Docker pour collecter, stocker et afficher des statistiques NBA de manière interactive. Il illustre la mise en place d’un pipeline complet allant de la collecte des données sur le web jusqu’à leur visualisation interactive sur une interface utilisateur.
 

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}NBA Totals Dashboard{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+  <h2>NBA Totals Dashboard</h2>
+</div>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <table class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Rk</th>
+          <th>Player</th>
+          <th>Age</th>
+          <th>Team</th>
+          <th>Pos</th>
+          <th>G</th>
+          <th>GS</th>
+          <th>MP</th>
+          <th>FG</th>
+          <th>FGA</th>
+          <th>FG%</th>
+          <th>3P</th>
+          <th>3PA</th>
+          <th>3P%</th>
+          <th>2P</th>
+          <th>2PA</th>
+          <th>2P%</th>
+          <th>eFG%</th>
+          <th>FT</th>
+          <th>FTA</th>
+          <th>FT%</th>
+          <th>ORB</th>
+          <th>DRB</th>
+          <th>TRB</th>
+          <th>AST</th>
+          <th>STL</th>
+          <th>BLK</th>
+          <th>TOV</th>
+          <th>PF</th>
+          <th>PTS</th>
+          <th>Trp-Dbl</th>
+          <th>Awards</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in totals %}
+        <tr>
+          <td>{{ item.Rk }}</td>
+          <td>{{ item.Player }}</td>
+          <td>{{ item.Age }}</td>
+          <td>{{ item.Team }}</td>
+          <td>{{ item.Pos }}</td>
+          <td>{{ item.G }}</td>
+          <td>{{ item.GS }}</td>
+          <td>{{ item.MP }}</td>
+          <td>{{ item.FG }}</td>
+          <td>{{ item.FGA }}</td>
+          <td>{{ item["FG%"] }}</td>
+          <td>{{ item["3P"] }}</td>
+          <td>{{ item["3PA"] }}</td>
+          <td>{{ item["3P%"] }}</td>
+          <td>{{ item["2P"] }}</td>
+          <td>{{ item["2PA"] }}</td>
+          <td>{{ item["2P%"] }}</td>
+          <td>{{ item["eFG%"] }}</td>
+          <td>{{ item.FT }}</td>
+          <td>{{ item.FTA }}</td>
+          <td>{{ item["FT%"] }}</td>
+          <td>{{ item.ORB }}</td>
+          <td>{{ item.DRB }}</td>
+          <td>{{ item.TRB }}</td>
+          <td>{{ item.AST }}</td>
+          <td>{{ item.STL }}</td>
+          <td>{{ item.BLK }}</td>
+          <td>{{ item.TOV }}</td>
+          <td>{{ item.PF }}</td>
+          <td>{{ item.PTS }}</td>
+          <td>{{ item["Trp-Dbl"] }}</td>
+          <td>{{ item.Awards }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="text-center mt-3">
+  <a href="{{ url_for('index') }}" class="btn btn-secondary">Retour à l'accueil</a>
+</div>
+{% endblock %}

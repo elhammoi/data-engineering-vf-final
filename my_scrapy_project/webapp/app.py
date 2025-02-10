@@ -114,6 +114,15 @@ def stats():
     
     return render_template('stats.html', categories=categories, teams=teams)
 
+@app.route('/totals')
+def totals():
+    """
+    Dashboard pour afficher les statistiques totales de la saison NBA.
+    Utilise les données de la collection 'nba_totals'.
+    """
+    totals_data = list(db["nba_totals"].find())
+    return render_template('totals.html', totals=totals_data)
+
 @app.route('/dashboard/')
 def dashboard():
     """Redirige /dashboard/ vers /stats."""

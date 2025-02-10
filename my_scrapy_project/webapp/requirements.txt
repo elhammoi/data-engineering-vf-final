@@ -1,2 +1,4 @@
-Flask
-pymongo
+flask
+flask_pymongo
+pandas
+plotly

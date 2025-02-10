@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Stats Globales{% endblock %}
+
+{% block content %}
+<h2>Statistiques Globales</h2>
+
+<h3>Stats par Catégorie</h3>
+<select id="category-select" class="form-select mb-3">
+    <option value="" selected disabled>Choisir une catégorie</option>
+    {% for category in categories %}
+    <option value="{{ category }}">{{ category }}</option>
+    {% endfor %}
+</select>
+<canvas id="category-chart" width="400" height="200"></canvas>
+
+<h3>Stats par Équipe</h3>
+<select id="team-select" class="form-select mb-3">
+    <option value="" selected disabled>Choisir une équipe</option>
+    {% for team in teams %}
+    <option value="{{ team }}">{{ team }}</option>
+    {% endfor %}
+</select>
+<canvas id="team-chart" width="400" height="200"></canvas>
+
+<script>
+document.getElementById('category-select').addEventListener('change', function() {
+    const category = this.value;
+    fetch(`/api/stats/category/${category}`)
+        .then(response => response.json())
+        .then(data => {
+            const labels = data.map(item => item.player_name);
+            const values = data.map(item => item.value);
+            const ctx = document.getElementById('category-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: `Stats for ${category}`,
+                        data: values,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+});
+
+document.getElementById('team-select').addEventListener('change', function() {
+    const team = this.value;
+    fetch(`/api/stats/team/${team}`)
+        .then(response => response.json())
+        .then(data => {
+            const labels = data.map(item => item.player_name);
+            const values = data.map(item => item.value);
+            const ctx = document.getElementById('team-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: `Stats for ${team}`,
+                        data: values,
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+});
+</script>
+
+<a href="{{ url_for('index') }}" class="btn btn-primary mt-3">Retour à l'accueil</a>
+{% endblock %}

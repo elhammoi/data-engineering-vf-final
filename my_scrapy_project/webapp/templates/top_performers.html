@@ -1,14 +1,13 @@
 {% extends "base.html" %}
-{% block title %}{{ team_name }} - Stats{% endblock %}
+{% block title %}Top Performers{% endblock %}
 
 {% block content %}
-<h2>{{ team_name }} - Statistiques</h2>
+<h2 class="text-center">Top Performers NBA</h2>
 
-<!-- Dropdown pour choisir la catégorie -->
+<!-- Dropdown pour filtrer par catégorie -->
 <form method="get">
     <label for="category">Choisir une catégorie :</label>
     <select id="category" name="category" class="form-select mb-3">
-        <option value="" {% if not selected_category %}selected{% endif %}>Toutes les catégories</option>
         {% for category in categories %}
         <option value="{{ category }}" {% if category == selected_category %}selected{% endif %}>{{ category }}</option>
         {% endfor %}
@@ -16,26 +15,30 @@
     <button type="submit" class="btn btn-primary">Filtrer</button>
 </form>
 
-<!-- Tableau des joueurs filtrés -->
-<h3>Joueurs</h3>
+<!-- Tableau des Top 10 joueurs -->
+{% if players %}
+<h3>Classement - {{ selected_category }}</h3>
 <table class="table table-bordered">
     <thead>
         <tr>
+            <th>Classement</th>
             <th>Joueur</th>
-            <th>Catégorie</th>
+            <th>Équipe</th>
             <th>Valeur</th>
         </tr>
     </thead>
     <tbody>
-        {% for player in players_data %}
+        {% for player in players %}
         <tr>
+            <td>{{ loop.index }}</td>  <!-- Numéro du classement -->
             <td><a href="{{ url_for('player', player_name=player.player_name) }}">{{ player.player_name }}</a></td>
-            <td>{{ player.category }}</td>
+            <td>{{ player.team }}</td>
             <td>{{ player.value }}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
 
 <a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">Retour à l'accueil</a>
 {% endblock %}

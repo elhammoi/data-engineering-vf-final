@@ -37,6 +37,11 @@ L'application est développée avec **Flask** et permet d'afficher les données 
 - Git installé pour récupérer le projet.
 - Python installé avec la gestion d’environnement virtuel `venv`.
 
+### **Cloner le projet**
+```bash
+git clone https://github.com/elhammoi/data-engineering-vf-final
+cd my_scrapy_project
+```
 
 ### **Créer et activer un environnement virtuel**
 ```bash
@@ -62,7 +67,7 @@ docker-compose up --build -d
 Cela démarre trois services :
 1. **MongoDB** : Base de données pour stocker les statistiques NBA.
 2. **Scraper** : Exécute les spiders Scrapy pour collecter les données.
-3. **WebApp** : Lance l'interface Flask accessible à l'adresse `http://8050:8050⁠/`.
+3. **WebApp** : Lance l'interface Flask accessible à l'adresse `http://127.0.0.1:8050/`.
 
 ## Fonctionnalités Clés
 ### **Scraping Automatisé**
@@ -129,10 +134,26 @@ pymongo
 scrapy
 ```
 
-## Améliorations Possibles
-- Intégration de **GraphQL** pour une meilleure requête des données.
-- Ajout d’un **système de mise à jour automatique** pour exécuter les spiders à intervalles réguliers.
-- Amélioration de l’interface avec un **design plus moderne et réactif**.
+## Aperçu du Dashboard
+### **Vue de l’Accueil**
+![Aperçu Accueil](pagggge.png)
+
+Cette page permet de naviguer entre les différentes équipes NBA et d’accéder aux statistiques détaillées de chaque équipe.
+
+### **Vue des Top Performers**
+![Aperçu Top Performers](pageacceui.png)
+
+Cette page permet d'afficher un classement des meilleurs joueurs selon un critère sélectionné (PTS, TRB, AST, etc.), avec possibilité de filtrer par équipe et par position.
+
+## Interface MongoDB
+![MongoDB Compass](mongodb.png)
+
+L’interface MongoDB Compass permet de visualiser les données stockées dans la base MongoDB et de vérifier leur intégrité.
+
+## Interface Docker
+![Docker Containers](docker.png)
+
+L’interface Docker Desktop permet de voir les différents conteneurs en cours d'exécution, garantissant que l’application fonctionne correctement.
 
 ## Conclusion
 Ce projet illustre l'utilisation combinée de **Scrapy**, **MongoDB**, **Flask**, et **Docker** pour collecter, stocker et afficher des statistiques NBA de manière interactive. Il fournit une base solide pour développer des applications analytiques dans le domaine du sport et des données statistiques.

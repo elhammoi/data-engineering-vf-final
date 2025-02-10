@@ -39,7 +39,7 @@
       <tbody>
         {% for player in players_data %}
         <tr>
-          <td><a href="{{ url_for('player', player_name=player.player_name) }}">{{ player.player_name }}</a></td>
+          <td><a href="{{ url_for('player', player_name=player.player_name or player.name) }}">{{ player.player_name or player.name }}</a></td>
           <td>{{ player.category }}</td>
           <td>{{ player.value }}</td>
         </tr>

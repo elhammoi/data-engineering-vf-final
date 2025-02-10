@@ -41,7 +41,7 @@
         {% for player in players %}
         <tr>
           <td>{{ loop.index }}</td>
-          <td><a href="{{ url_for('player', player_name=player.player_name) }}">{{ player.player_name }}</a></td>
+          <td><a href="{{ url_for('player', player_name=player.player_name or player.name) }}">{{ player.player_name or player.name }}</a></td>
           <td>{{ player.team }}</td>
           <td>{{ player.value }}</td>
         </tr>

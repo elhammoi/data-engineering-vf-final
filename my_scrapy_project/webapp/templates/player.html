@@ -6,33 +6,47 @@
   <h2>Statistiques de {{ player_name }}</h2>
 </div>
 <div class="row">
-  {% if leader_stats %}
+  {% if new_leader_stats or old_leader_stats %}
   <div class="col-md-6">
     <div class="card mb-3 shadow-sm">
       <div class="card-header bg-primary text-white">
-        Stats de Leader
+        Statistiques Leader
       </div>
       <div class="card-body">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><strong>Catégorie :</strong> {{ leader_stats.category }}</li>
-          <li class="list-group-item"><strong>Équipe :</strong> {{ leader_stats.team }}</li>
-          <li class="list-group-item"><strong>Valeur :</strong> {{ leader_stats.value }}</li>
+          {% if new_leader_stats %}
+          <li class="list-group-item"><strong>New - Catégorie :</strong> {{ new_leader_stats.category }}</li>
+          <li class="list-group-item"><strong>New - Équipe :</strong> {{ new_leader_stats.team }}</li>
+          <li class="list-group-item"><strong>New - Valeur :</strong> {{ new_leader_stats.value }}</li>
+          {% endif %}
+          {% if old_leader_stats %}
+          <li class="list-group-item"><strong>Old - Catégorie :</strong> {{ old_leader_stats.category }}</li>
+          <li class="list-group-item"><strong>Old - Équipe :</strong> {{ old_leader_stats.team }}</li>
+          <li class="list-group-item"><strong>Old - Valeur :</strong> {{ old_leader_stats.value }}</li>
+          {% endif %}
         </ul>
       </div>
     </div>
   </div>
   {% endif %}
-  {% if shooter_stats %}
+  {% if new_shooter_stats or old_shooter_stats %}
   <div class="col-md-6">
     <div class="card mb-3 shadow-sm">
       <div class="card-header bg-secondary text-white">
-        Stats de Shooter
+        Statistiques Shooter
       </div>
       <div class="card-body">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><strong>Rang :</strong> {{ shooter_stats.rank }}</li>
-          <li class="list-group-item"><strong>Équipe :</strong> {{ shooter_stats.team }}</li>
-          <li class="list-group-item"><strong>Points :</strong> {{ shooter_stats.points }}</li>
+          {% if new_shooter_stats %}
+          <li class="list-group-item"><strong>New - Rang :</strong> {{ new_shooter_stats.rank }}</li>
+          <li class="list-group-item"><strong>New - Équipe :</strong> {{ new_shooter_stats.team }}</li>
+          <li class="list-group-item"><strong>New - Points :</strong> {{ new_shooter_stats.points }}</li>
+          {% endif %}
+          {% if old_shooter_stats %}
+          <li class="list-group-item"><strong>Old - Rang :</strong> {{ old_shooter_stats.rank }}</li>
+          <li class="list-group-item"><strong>Old - Équipe :</strong> {{ old_shooter_stats.team }}</li>
+          <li class="list-group-item"><strong>Old - Points :</strong> {{ old_shooter_stats.points }}</li>
+          {% endif %}
         </ul>
       </div>
     </div>

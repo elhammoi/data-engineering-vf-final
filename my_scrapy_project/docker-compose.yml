@@ -13,7 +13,8 @@ services:
     container_name: my_scraper
     depends_on:
       - mongo
-    command: /bin/sh -c "scrapy crawl nba_leaders && scrapy crawl nba_shooters"
+    command: /bin/sh -c "scrapy crawl nba_leaders && scrapy crawl nba_shooters && scrapy crawl nba_totals"
+
     
   webapp:
     build: ./webapp
